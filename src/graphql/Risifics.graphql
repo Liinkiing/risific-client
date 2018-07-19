@@ -1,0 +1,18 @@
+query risifics {
+    risifics {
+        edges {
+            node {
+                id
+                title
+                chapters(first: 100) {
+                    edges {
+                        node {
+                            position
+                            title
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
