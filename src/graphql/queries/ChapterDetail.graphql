@@ -1,4 +1,4 @@
-query ChaptersDetail($slug: String!, $chapter: String!) {
+query ChapterDetail($slug: String!, $chapter: String!) {
     chapters(risific_slug: $slug, position: $chapter) {
         edges {
             node {

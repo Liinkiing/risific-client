@@ -1,5 +1,5 @@
 <template>
-    <ApolloQuery :query="require('../../graphql/AllRisific.graphql')">
+    <ApolloQuery :query="require('../../graphql/queries/RisificList.graphql')">
         <template slot-scope="{ result: { data, loading } }">
             <span v-if="loading" class="loading">Chargement...</span>
             <ul v-else class="risific-list">

@@ -1,0 +1,14 @@
+#import "../fragments/RisificDetails.graphql"
+
+query RisificPaginationQuery($slug: String!) {
+    risifics(slug: $slug) {
+        edges {
+            node {
+                ...RisificDetails
+                 chapters {
+                     totalCount
+                 }
+            }
+        }
+    }
+}
