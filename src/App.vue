@@ -1,8 +1,15 @@
 <template>
-  <div id="app">
-    <nav>
+    <div id="app">
+        <nav class="main-navigation">
+            <div class="container">
+                <router-link :to="{name: 'home'}">Risific</router-link>
+                <div class="pull-right">
 
-    </nav>
-    <router-view/>
-  </div>
+                </div>
+            </div>
+        </nav>
+        <main class="container">
+            <router-view/>
+        </main>
+    </div>
 </template>

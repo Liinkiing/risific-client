@@ -1,9 +1,55 @@
 @import "./bootstrap";
-
 @import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,900');
+
+html {
+  font-size: 100%;
+}
 
 body {
   background: $darker;
   font-family: 'Lato', 'Helvetica', 'Arial', sans-serif;
   color: $white;
+}
+
+main.container {
+  margin-top: $navbar-height + 40;
+}
+
+.container {
+  margin: 0 $margin-mobile;
+  @include breakpoint(tablet) {
+    max-width: 90%;
+    margin: 0 auto;
+  }
+  @include breakpoint(desktop) {
+    max-width: 70%;
+    margin: 0 auto;
+  }
+}
+
+a {
+  transition: all $transition-duration;
+  color: $green;
+  font-weight: 500;
+  text-decoration: none;
+  &:hover {
+    color: darken($green, 10);
+  }
+}
+
+.main-navigation {
+  background: $medium-dark;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: $navbar-height;
+  & .pull-right {
+    margin-left: auto;
+  }
+  & .container {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
 }

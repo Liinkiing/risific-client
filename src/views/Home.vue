@@ -1,11 +1,14 @@
 <template>
-    <div>
-        <h1>Je suis la home</h1>
+    <div class="home-page">
+        <h1>Liste des risifics</h1>
+        <risific-list/>
     </div>
 </template>
 
 <script>
+import RisificList from "../components/risific/RisificList";
 export default {
-  name: "home"
+  name: "home",
+  components: { RisificList }
 };
 </script>
