@@ -7,6 +7,7 @@
             <div class="risific-pagination" v-if="data">
                 <router-link v-for="chapterNumber in data.risifics.edges[0].node.chapters.totalCount"
                              :key="chapterNumber"
+                             class="risific-page-link"
                              :to="{name: 'chapter.view', params: { slug, chapter: chapterNumber }}"
                 >{{ chapterNumber }}
                 </router-link>
@@ -24,5 +25,9 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.risific-page-link.router-link-active {
+  font-weight: 900;
+  color: lighten($green, 10);
+}
 </style>
