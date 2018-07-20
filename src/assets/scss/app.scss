@@ -1,1 +1,9 @@
 @import "./bootstrap";
+
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,900');
+
+body {
+  background: $darker;
+  font-family: 'Lato', 'Helvetica', 'Arial', sans-serif;
+  color: $white;
+}
