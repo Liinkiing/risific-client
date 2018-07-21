@@ -1,0 +1,12 @@
+query ChapterViewQuery($slug: Any!, $chapterNumber: Int!) {
+    risific(search: {field: SLUG, value: $slug}) {
+        title,
+        slug
+        createdAt
+        chaptersCount
+        chapter(position: $chapterNumber) {
+           title
+            body
+        }
+    }
+}

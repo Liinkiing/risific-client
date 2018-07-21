@@ -15,12 +15,12 @@ export default new Router({
       component: Home
     },
     {
-      path: "/risific/:slug/:chapter(\\d+)",
+      path: "/risific/:slug/:chapterNumber(\\d+)",
       name: "chapter.view",
       component: ChapterView,
       props: route => ({
         slug: route.params.slug,
-        chapter: Number.parseInt(route.params.chapter)
+        chapterNumber: Number.parseInt(route.params.chapterNumber)
       })
     },
     {

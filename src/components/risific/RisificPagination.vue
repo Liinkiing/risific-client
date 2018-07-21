@@ -1,26 +1,20 @@
 <template>
-    <ApolloQuery
-            :query="require('../../graphql/queries/RisificPagination.graphql')"
-            :variables="{ slug }"
-    >
-        <template slot-scope="{ result: { data, loading } }">
-            <div class="risific-pagination" v-if="data">
-                <router-link v-for="chapterNumber in data.risifics.edges[0].node.chapters.totalCount"
-                             :key="chapterNumber"
-                             class="risific-page-link"
-                             :to="{name: 'chapter.view', params: { slug, chapter: chapterNumber }}"
-                >{{ chapterNumber }}
-                </router-link>
-            </div>
-        </template>
-    </ApolloQuery>
+    <div class="risific-pagination">
+        <router-link v-for="chapterNumber in chaptersCount"
+                     :key="chapterNumber"
+                     class="risific-page-link"
+                     :to="{name: 'chapter.view', params: { slug: risificSlug, chapterNumber }}"
+        >{{ chapterNumber }}
+        </router-link>
+    </div>
 </template>
 
 <script>
 export default {
   name: "risific-pagination",
   props: {
-    slug: { type: String, required: true }
+    risificSlug: { type: String, required: true },
+    chaptersCount: { type: Number, required: true }
   }
 };
 </script>
