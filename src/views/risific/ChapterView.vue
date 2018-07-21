@@ -1,42 +1,28 @@
 <template>
     <div class="chapter-view-page">
-        <div v-if="$apollo.loading">Chargement...</div>
-        <div v-else-if="risific">
-            <h1>{{ risific.title }}</h1>
-            <transition name="fade-up">
-                <div v-if="risific.chapter">
-                    <risific-pagination :risific-slug="risific.slug" :chapters-count="risific.chaptersCount"/>
-                    <div v-html="risific.chapter.body">
-                        {{ risific.chapter.body }}
-                    </div>
-                    <risific-pagination :risific-slug="risific.slug" :chapters-count="risific.chaptersCount"/>
+        <ApolloQuery :query="require('../../graphql/queries/ChapterViewQuery.graphql')"
+                     :variables="{ slug: risificSlug, chapterNumber }">
+            <template slot-scope="{ result: { data, loading, error } }">
+                <div v-if="data && data.chapter" v-html="data.chapter.body">
+                    {{ data.chapter.body }}
                 </div>
-            </transition>
-        </div>
-        <div v-else>Rien :(</div>
+                <div v-else-if="loading" style="height: 400px; display: flex; justify-content: center; align-items: center; "><loader/></div>
+            </template>
+        </ApolloQuery>
     </div>
 </template>
 
 <script>
 import RisificPagination from "../../components/risific/RisificPagination";
+import Loader from "../../components/ui/Loader";
 
 export default {
   name: "ChapterView",
-  components: { RisificPagination },
+  components: { Loader, RisificPagination },
   props: {
-    slug: { type: String, required: true },
-    chapterNumber: { type: Number, required: true }
-  },
-  apollo: {
-    risific: {
-      query: require("../../graphql/queries/ChapterViewQuery.graphql"),
-      variables() {
-        return {
-          slug: this.slug,
-          chapterNumber: this.chapterNumber
-        };
-      }
-    }
+    risificSlug: { type: String, required: true },
+    chapterNumber: { type: Number, required: true },
+    chaptersCount: { type: Number, required: false }
   },
   methods: {
     handleShortcuts(e) {
@@ -45,18 +31,18 @@ export default {
         if (e.keyCode === 37) {
           chapterNumber =
             this.chapterNumber === 1
-              ? this.risific.chaptersCount
+              ? this.chaptersCount
               : this.chapterNumber - 1;
         } else if (e.keyCode === 39) {
           chapterNumber =
-            this.chapterNumber === this.risific.chaptersCount
+            this.chapterNumber === this.chaptersCount
               ? 1
               : this.chapterNumber + 1;
         }
         this.$router.push({
           name: "chapter.view",
           params: {
-            slug: this.slug,
+            slug: this.risificSlug,
             chapterNumber
           }
         });

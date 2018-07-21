@@ -1,5 +1,0 @@
-query ChaptersCountQuery($slug: String!) {
-    chapters(risific_slug: $slug) {
-        totalCount
-    }
-}
