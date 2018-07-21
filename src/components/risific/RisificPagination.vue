@@ -20,6 +20,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.risific-pagination {
+  text-align: center;
+}
 .risific-page-link.router-link-active {
   font-weight: 900;
   color: lighten($green, 10);

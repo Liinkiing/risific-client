@@ -11,6 +11,10 @@
                     <risific-pagination :chapters-count="data.risific.chaptersCount"
                                         :risific-slug="data.risific.slug"/>
                 </div>
+                <div v-else>
+                    <h1>Désolé khey</h1>
+                    <h2>Cette fic n'existe pas</h2>
+                </div>
             </template>
         </ApolloQuery>
     </div>
