@@ -1,11 +1,11 @@
 #import "../fragments/RisificDetails.graphql"
 
 query RisificList {
-    risifics {
-        edges {
-            node {
-                ...RisificDetails
-            }
-        }
+  risifics {
+    edges {
+      node {
+        ...RisificDetails
+      }
     }
+  }
 }

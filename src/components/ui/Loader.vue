@@ -1,7 +1,7 @@
 <template>
-    <div class="loader">
-        <img src="../../assets/images/tail-spin.svg" class="loader-icon" alt="">
-    </div>
+  <div class="loader">
+    <img src="../../assets/images/tail-spin.svg" class="loader-icon" alt="">
+  </div>
 </template>
 
 <script>
@@ -14,5 +14,4 @@ export default {
 </script>
 
 <style lang="scss">
-
 </style>

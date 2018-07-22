@@ -1,8 +1,8 @@
 query ChapterViewQuery($slug: Any!) {
-    risific(search: {field: SLUG, value: $slug}) {
-        title
-        slug
-        createdAt
-        chaptersCount
-    }
+  risific(search: {field: SLUG, value: $slug}) {
+    title
+    slug
+    createdAt
+    chaptersCount
+  }
 }

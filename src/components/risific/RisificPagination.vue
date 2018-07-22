@@ -1,12 +1,12 @@
 <template>
-    <div class="risific-pagination">
-        <router-link v-for="chapterNumber in chaptersCount"
-                     :key="chapterNumber"
-                     class="risific-page-link"
-                     :to="{name: 'chapter.view', params: { slug: risificSlug, chapterNumber }}"
-        >{{ chapterNumber }}
-        </router-link>
-    </div>
+  <div class="risific-pagination">
+    <router-link v-for="chapterNumber in chaptersCount"
+                 :key="chapterNumber"
+                 class="risific-page-link"
+                 :to="{name: 'chapter.view', params: { slug: risificSlug, chapterNumber }}"
+    >{{ chapterNumber }}
+    </router-link>
+  </div>
 </template>
 
 <script>
@@ -23,6 +23,7 @@ export default {
 .risific-pagination {
   text-align: center;
 }
+
 .risific-page-link.router-link-active {
   font-weight: 900;
   color: lighten($green, 10);

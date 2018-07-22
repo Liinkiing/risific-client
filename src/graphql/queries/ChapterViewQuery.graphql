@@ -1,6 +1,6 @@
 query ChapterViewQuery($slug: String!, $chapterNumber: Int!) {
-    chapter(risificSlug: $slug, position: $chapterNumber) {
-        title
-        body
-    }
+  chapter(risificSlug: $slug, position: $chapterNumber) {
+    title
+    body
+  }
 }

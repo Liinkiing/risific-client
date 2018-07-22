@@ -1,6 +1,6 @@
 fragment RisificDetails on Risific {
-    id
-    title
-    slug
-    createdAt
+  id
+  title
+  slug
+  createdAt
 }
