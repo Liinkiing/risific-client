@@ -53,3 +53,50 @@ a {
     height: 100%;
   }
 }
+
+.fixed-bloc {
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+span.contenu-spoil {
+  display: none;
+}
+
+.aff-spoil,
+.masq-spoil {
+  display: none;
+}
+
+.bloc-spoil-jv {
+  & .contenu-spoil {
+    background: transparentize($green, 0.3);
+    padding: 10px;
+    display: none;
+  }
+  & label {
+    transition: all $transition-duration;
+    display: inline-block;
+    padding: 5px 20px;
+    background: $green;
+    user-select: none;
+    &:hover {
+      cursor: pointer;
+      background: transparentize($green, 0.3);
+    }
+  }
+  & input[type="checkbox"] {
+    display: none;
+    &:checked {
+      & ~ label {
+        background: transparentize($green, 0.3);
+      }
+      & ~ label ~ .contenu-spoil {
+        display: block;
+      }
+    }
+  }
+}
