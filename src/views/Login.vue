@@ -5,7 +5,7 @@
       <div class="page-content">
         <form action="" method="post" @submit="$event.preventDefault()">
           <ApolloMutation :mutation="require('../graphql/mutations/LoginUserMutation.graphql')"
-                          :variables="{ username, password }"
+                          :variables="{ input: { username, password } }"
                           @done="onSuccessLogin">
             <template slot-scope="{ mutate, loading, gqlError } ">
               <div class="form-input">
@@ -47,10 +47,10 @@ export default {
     ...mapMutations("user", [SET_LOGGED_IN]),
     async onSuccessLogin({
       data: {
-        loginUser: { token }
+        loginUser: { token, refreshToken }
       }
     }) {
-      await onLogin(this.$apolloProvider.defaultClient, token);
+      await onLogin(this.$apolloProvider.defaultClient, token, refreshToken);
       this[SET_LOGGED_IN](true);
     },
     async logout() {

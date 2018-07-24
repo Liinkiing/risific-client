@@ -4,12 +4,14 @@ import {
   createApolloClient,
   restartWebsockets
 } from "vue-cli-plugin-apollo/graphql-client";
+import { refreshTokenLink } from "./refresh-token-link";
 
 // Install the vue plugin
 Vue.use(VueApollo);
 
 // Name of the localStorage item
 export const AUTH_TOKEN = "jwt";
+export const AUTH_REFRESH_TOKEN = "refresh_jwt";
 
 // Config
 const defaultOptions = {
@@ -27,10 +29,10 @@ const defaultOptions = {
   // You need to pass a `wsEndpoint` for this to work
   websocketsOnly: false,
   // Is being rendered on the server?
-  ssr: false
+  ssr: false,
 
   // Override default http link
-  // link: myLink
+  link: refreshTokenLink
 
   // Override default cache
   // cache: myCache
@@ -76,8 +78,9 @@ export function createProvider(options = {}) {
 }
 
 // Manually call this when user log in
-export async function onLogin(apolloClient, token) {
+export async function onLogin(apolloClient, token, refreshToken) {
   localStorage.setItem(AUTH_TOKEN, token);
+  localStorage.setItem(AUTH_REFRESH_TOKEN, refreshToken);
   if (apolloClient.wsClient) restartWebsockets(apolloClient.wsClient);
   try {
     await apolloClient.resetStore();
@@ -90,6 +93,7 @@ export async function onLogin(apolloClient, token) {
 // Manually call this when user log out
 export async function onLogout(apolloClient) {
   localStorage.removeItem(AUTH_TOKEN);
+  localStorage.removeItem(AUTH_REFRESH_TOKEN);
   if (apolloClient.wsClient) restartWebsockets(apolloClient.wsClient);
   try {
     await apolloClient.resetStore();
