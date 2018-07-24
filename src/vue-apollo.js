@@ -4,7 +4,11 @@ import {
   createApolloClient,
   restartWebsockets
 } from "vue-cli-plugin-apollo/graphql-client";
-import { refreshTokenLink } from "./refresh-token-link";
+import { refreshTokenMiddleware } from "./refresh-token-link";
+import { from } from "apollo-link";
+import { HttpLink } from "apollo-link-http";
+
+const httpLink = new HttpLink({ uri: process.env.VUE_APP_GRAPHQL_HTTP });
 
 // Install the vue plugin
 Vue.use(VueApollo);
@@ -32,7 +36,7 @@ const defaultOptions = {
   ssr: false,
 
   // Override default http link
-  link: refreshTokenLink
+  link: from([refreshTokenMiddleware, httpLink])
 
   // Override default cache
   // cache: myCache
