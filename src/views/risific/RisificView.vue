@@ -9,11 +9,7 @@
         <div v-else-if="data && data.risific">
           <vue-headful :title="'Risific - ' + data.risific.title"/>
           <h1>{{ data.risific.title }}</h1>
-          <risific-pagination :chapters-count="data.risific.chaptersCount"
-                              :risific-slug="data.risific.slug"/>
           <router-view :risific-title="data.risific.title" :chapters-count="data.risific.chaptersCount" :key="$route.fullPath"></router-view>
-          <risific-pagination :chapters-count="data.risific.chaptersCount"
-                              :risific-slug="data.risific.slug"/>
         </div>
         <div v-else-if="data && !data.risific">
           <h1>Désolé khey</h1>

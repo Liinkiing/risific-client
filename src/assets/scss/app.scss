@@ -37,23 +37,6 @@ a {
   }
 }
 
-.main-navigation {
-  background: $medium-dark;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: $navbar-height;
-  & .pull-right {
-    margin-left: auto;
-  }
-  & .container {
-    display: flex;
-    align-items: center;
-    height: 100%;
-  }
-}
-
 .fixed-bloc {
   height: 400px;
   display: flex;

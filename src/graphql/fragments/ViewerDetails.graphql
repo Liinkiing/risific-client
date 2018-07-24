@@ -1,0 +1,15 @@
+#import "./fragments/FavoriteDetails.graphql"
+
+fragment ViewerDetails on User {
+  __typename
+  id
+  username
+  favorites {
+    totalCount
+    edges {
+      node {
+        ...FavoriteDetails
+      }
+    }
+  }
+}

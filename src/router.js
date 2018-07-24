@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
+import Login from "./views/Login.vue";
 import ChapterView from "./views/risific/ChapterView.vue";
 import RisificView from "./views/risific/RisificView.vue";
 import NotFound from "./views/NotFound.vue";
@@ -15,6 +16,12 @@ export default new Router({
       name: "home",
       component: Home
     },
+    {
+      path: "/login",
+      name: "login",
+      component: Login
+    },
+
     {
       path: "/risific/:slug",
       name: "risific.view",

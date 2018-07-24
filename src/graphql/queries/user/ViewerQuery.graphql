@@ -1,0 +1,20 @@
+query ViewerQuery {
+  viewer {
+    __typename
+    id
+    email
+    username
+    favorites {
+      totalCount
+      edges {
+        node {
+          risific {
+            title
+            slug
+          }
+          favoritedAt
+        }
+      }
+    }
+  }
+}

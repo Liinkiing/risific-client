@@ -1,0 +1,8 @@
+#import "./fragments/RisificDetails.graphql"
+
+fragment FavoriteDetails on UserFavorite {
+  risific {
+    ...RisificDetails
+  }
+  favoritedAt
+}

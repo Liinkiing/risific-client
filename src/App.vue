@@ -1,16 +1,15 @@
 <template>
   <div id="app">
     <vue-headful title="Risific"/>
-    <nav class="main-navigation">
-      <div class="container">
-        <router-link :to="{name: 'home'}">Risific</router-link>
-        <div class="pull-right">
-
-        </div>
-      </div>
-    </nav>
+    <app-header/>
     <main class="container">
       <router-view/>
     </main>
   </div>
 </template>
+<script>
+import AppHeader from "./components/ui/AppHeader";
+export default {
+  components: { AppHeader }
+};
+</script>
