@@ -29,9 +29,8 @@
 </template>
 
 <script>
-import { mapMutations, mapState } from "vuex";
-import { onLogin, onLogout } from "../vue-apollo";
-import { SET_LOGGED_IN } from "../store/modules/user/mutations";
+import { mapState } from "vuex";
+import { EventBus } from "../main";
 export default {
   name: "page-login",
   data() {
@@ -44,18 +43,15 @@ export default {
     ...mapState("user", ["isLoggedIn"])
   },
   methods: {
-    ...mapMutations("user", [SET_LOGGED_IN]),
-    async onSuccessLogin({
+    onSuccessLogin({
       data: {
         loginUser: { token, refreshToken }
       }
     }) {
-      await onLogin(this.$apolloProvider.defaultClient, token, refreshToken);
-      this[SET_LOGGED_IN](true);
+      EventBus.$emit("login", { token, refreshToken });
     },
-    async logout() {
-      await onLogout(this.$apolloProvider.defaultClient);
-      this[SET_LOGGED_IN](false);
+    logout() {
+      EventBus.$emit("logout");
     }
   }
 };

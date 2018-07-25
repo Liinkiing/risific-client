@@ -7,6 +7,7 @@ import {
 import { refreshTokenMiddleware } from "./refresh-token-link";
 import { from } from "apollo-link";
 import { HttpLink } from "apollo-link-http";
+import AuthManager from "./managers/AuthManager";
 
 const httpLink = new HttpLink({ uri: process.env.VUE_APP_GRAPHQL_HTTP });
 
@@ -15,7 +16,7 @@ Vue.use(VueApollo);
 
 // Name of the localStorage item
 export const AUTH_TOKEN = "jwt";
-export const AUTH_REFRESH_TOKEN = "refresh_jwt";
+export const AUTH_REFRESH_TOKEN = "refresh_token";
 
 // Config
 const defaultOptions = {
@@ -83,8 +84,8 @@ export function createProvider(options = {}) {
 
 // Manually call this when user log in
 export async function onLogin(apolloClient, token, refreshToken) {
-  localStorage.setItem(AUTH_TOKEN, token);
-  localStorage.setItem(AUTH_REFRESH_TOKEN, refreshToken);
+  AuthManager.setToken(token);
+  AuthManager.setRefreshToken(refreshToken);
   if (apolloClient.wsClient) restartWebsockets(apolloClient.wsClient);
   try {
     await apolloClient.resetStore();
@@ -96,8 +97,8 @@ export async function onLogin(apolloClient, token, refreshToken) {
 
 // Manually call this when user log out
 export async function onLogout(apolloClient) {
-  localStorage.removeItem(AUTH_TOKEN);
-  localStorage.removeItem(AUTH_REFRESH_TOKEN);
+  AuthManager.removeToken();
+  AuthManager.removeRefreshToken();
   if (apolloClient.wsClient) restartWebsockets(apolloClient.wsClient);
   try {
     await apolloClient.resetStore();

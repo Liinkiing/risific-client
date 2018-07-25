@@ -6,6 +6,8 @@ import router from "./router";
 import store from "./store/";
 import { createProvider } from "./vue-apollo";
 
+export const EventBus = new Vue();
+
 Vue.config.productionTip = false;
 Vue.config.devtools = process.env.NODE_ENV === "development";
 Vue.config.debug = process.env.NODE_ENV === "development";
