@@ -1,6 +1,19 @@
 import { AUTH_REFRESH_TOKEN, AUTH_TOKEN } from "../vue-apollo";
+import jwtDecode from "jwt-decode";
 
 class AuthManager {
+  isTokenValid() {
+    try {
+      const decoded = jwtDecode(this.getToken());
+      const expirationDate = new Date(decoded.exp * 1000);
+      return expirationDate < Date.now();
+    } catch (e) {
+      this.removeToken();
+      this.removeRefreshToken();
+      return false;
+    }
+  }
+
   hasToken() {
     return (
       localStorage.getItem(AUTH_TOKEN) !== "undefined" &&
@@ -69,7 +82,7 @@ class AuthManager {
   }
 
   isLoggedIn() {
-    return this.hasToken() && this.hasRefreshToken();
+    return this.hasToken() && this.isTokenValid() && this.hasRefreshToken();
   }
 }
 

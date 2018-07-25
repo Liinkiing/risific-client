@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "apollo-link-error": "^1.1.0",
+    "jwt-decode": "^2.2.0",
     "vue": "^2.5.16",
     "vue-apollo": "^3.0.0-beta.10",
     "vue-headful": "^2.0.1",

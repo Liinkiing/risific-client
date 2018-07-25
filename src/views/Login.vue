@@ -20,9 +20,6 @@
               </div>
             </template>
           </ApolloMutation>
-          <div class="form-input">
-            <button v-if="isLoggedIn" @click="logout">Se déconnecter</button>
-          </div>
         </form>
       </div>
     </div>
@@ -31,6 +28,7 @@
 <script>
 import { mapState } from "vuex";
 import { EventBus } from "../main";
+import { EVENT_LOGIN } from "../constants";
 export default {
   name: "page-login",
   data() {
@@ -48,10 +46,7 @@ export default {
         loginUser: { token, refreshToken }
       }
     }) {
-      EventBus.$emit("login", { token, refreshToken });
-    },
-    logout() {
-      EventBus.$emit("logout");
+      EventBus.$emit(EVENT_LOGIN, { token, refreshToken });
     }
   }
 };
