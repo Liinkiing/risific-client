@@ -82,7 +82,7 @@ class AuthManager {
   }
 
   isLoggedIn() {
-    return this.hasToken() && this.isTokenValid() && this.hasRefreshToken();
+    return this.hasToken() && this.hasRefreshToken();
   }
 }
 
