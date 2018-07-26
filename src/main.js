@@ -1,5 +1,8 @@
 import Vue from "vue";
 import vueHeadful from "vue-headful";
+import vueMoment from "vue-moment";
+import moment from "moment";
+import "moment/locale/fr";
 
 import App from "./App.vue";
 import "./assets/scss/app.scss";
@@ -15,6 +18,7 @@ Vue.config.debug = process.env.NODE_ENV === "development";
 Vue.config.silent = process.env.NODE_ENV !== "development";
 
 Vue.component("vue-headful", vueHeadful);
+Vue.use(vueMoment, { moment });
 
 new Vue({
   router,

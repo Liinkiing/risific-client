@@ -97,11 +97,11 @@ export async function onLogin(apolloClient, token, refreshToken) {
 
 // Manually call this when user log out
 export async function onLogout(apolloClient) {
-  AuthManager.removeToken();
-  AuthManager.removeRefreshToken();
   if (apolloClient.wsClient) restartWebsockets(apolloClient.wsClient);
   try {
     await apolloClient.resetStore();
+    AuthManager.removeToken();
+    AuthManager.removeRefreshToken();
   } catch (e) {
     // eslint-disable-next-line no-console
     console.log("%cError on cache reset (logout)", "color: orange;", e.message);

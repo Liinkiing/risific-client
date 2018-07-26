@@ -8,3 +8,14 @@
   opacity: 0;
   filter: blur(15px)
 }
+
+.fade-up-fast-enter-active {
+  transition: opacity .1s, filter 0.15s;
+}
+.fade-up-fast-leave-active {
+  transition: opacity .1s, filter 0.15s;
+}
+.fade-up-fast-enter, .fade-up-leave-to {
+  opacity: 0;
+  filter: blur(15px)
+}

@@ -3,7 +3,9 @@
     <vue-headful title="Risific"/>
     <app-header/>
     <main class="container">
-      <router-view/>
+      <transition name="fade-up" mode="out-in">
+        <router-view/>
+      </transition>
     </main>
   </div>
 </template>
@@ -14,7 +16,7 @@ import { EventBus } from "./main";
 import { onLogin, onLogout } from "./vue-apollo";
 import { SET_LOGGED_IN } from "./store/modules/user/mutations";
 import { EVENT_LOGIN, EVENT_LOGOUT } from "./constants";
-import { HOME_ROUTE } from "./router/routes";
+import { HOME_ROUTE, ME_ROUTE } from "./router/routes";
 export default {
   components: { AppHeader },
   methods: {
@@ -24,11 +26,12 @@ export default {
     EventBus.$on(EVENT_LOGIN, async ({ token, refreshToken }) => {
       await onLogin(this.$apolloProvider.defaultClient, token, refreshToken);
       this[SET_LOGGED_IN](true);
-      this.$router.replace({ name: HOME_ROUTE });
+      this.$router.replace({ name: ME_ROUTE });
     });
     EventBus.$on(EVENT_LOGOUT, async () => {
-      this[SET_LOGGED_IN](false);
       await onLogout(this.$apolloProvider.defaultClient);
+      this[SET_LOGGED_IN](false);
+      this.$router.replace({ name: HOME_ROUTE });
     });
   }
 };

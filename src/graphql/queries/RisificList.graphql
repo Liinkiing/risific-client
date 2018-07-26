@@ -1,10 +1,11 @@
 #import "../fragments/RisificDetails.graphql"
 
-query RisificList {
+query RisificList($isAuthenticated: Boolean = false) {
   risifics {
     edges {
       node {
         ...RisificDetails
+        viewerHasFavorited @include(if: $isAuthenticated)
       }
     }
   }

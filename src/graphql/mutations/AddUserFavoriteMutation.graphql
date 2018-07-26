@@ -1,0 +1,10 @@
+mutation AddUserFavorite ($input: AddUserFavoriteInput!) {
+  addUserFavorite(input: $input) {
+    userFavorite {
+      risific {
+        id
+        viewerHasFavorited
+      }
+    }
+  }
+}

@@ -9,6 +9,24 @@
         <div v-else-if="data && data.risific">
           <vue-headful :title="'Risific - ' + data.risific.title"/>
           <h1>{{ data.risific.title }}</h1>
+          <ApolloMutation v-if="isLoggedIn && data.risific.viewerHasFavorited" tag="span"
+                          :mutation="require('../../graphql/mutations/DeleteUserFavoriteMutation.graphql')"
+                          :variables="{input: { risificId: data.risific.id }}"
+                          :refetch-queries="refetchRisific">
+            <template slot-scope="{ mutate, loading, error }">
+              <button :disabled="loading" @click="mutate()">Supprimer des favoris</button>
+              <p v-if="error">An error occured: {{ error }}</p>
+            </template>
+          </ApolloMutation>
+          <ApolloMutation v-else-if="isLoggedIn && !data.risific.viewerHasFavorited" tag="span"
+                          :mutation="require('../../graphql/mutations/AddUserFavoriteMutation.graphql')"
+                          :variables="{input: { risificId: data.risific.id }}">
+            <template slot-scope="{ mutate, loading, error }">
+              <button :disabled="loading" @click="mutate()">Ajouter aux favoris</button>
+              <p v-if="error">An error occured: {{ error }}</p>
+            </template>
+          </ApolloMutation>
+
           <router-view :risific-title="data.risific.title" :chapters-count="data.risific.chaptersCount" :key="$route.fullPath"></router-view>
         </div>
         <div v-else-if="data && !data.risific">
@@ -21,6 +39,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import RisificPagination from "../../components/risific/RisificPagination";
 import Loader from "../../components/ui/Loader";
 
@@ -29,6 +48,21 @@ export default {
   components: { Loader, RisificPagination },
   props: {
     slug: { type: String, required: true }
+  },
+  computed: {
+    ...mapState("user", ["isLoggedIn"])
+  },
+  methods: {
+    refetchRisific() {
+      return [
+        {
+          query: require("../../graphql/queries/RisificViewQuery.graphql"),
+          variables: {
+            slug: this.slug
+          }
+        }
+      ];
+    }
   }
 };
 </script>

@@ -6,7 +6,7 @@ class AuthManager {
     try {
       const decoded = jwtDecode(this.getToken());
       const expirationDate = new Date(decoded.exp * 1000);
-      return expirationDate < Date.now();
+      return expirationDate > Date.now();
     } catch (e) {
       this.removeToken();
       this.removeRefreshToken();

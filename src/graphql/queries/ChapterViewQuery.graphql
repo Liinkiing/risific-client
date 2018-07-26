@@ -1,6 +1,5 @@
 query ChapterViewQuery($slug: String!, $chapterNumber: Int!) {
   chapter(risificSlug: $slug, position: $chapterNumber) {
-    __typename
     id
     title
     body

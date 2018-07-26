@@ -1,8 +1,10 @@
-query ChapterViewQuery($slug: Any!) {
+query RisificViewQuery ($slug: Any!) {
   risific(search: {field: SLUG, value: $slug}) {
+    id
     title
     slug
     createdAt
     chaptersCount
+    viewerHasFavorited
   }
 }

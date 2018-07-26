@@ -1,5 +1,5 @@
 <template>
-  <div class="loader">
+  <div class="loader" :class="{inline: 'loader-inline'}">
     <img src="../../assets/images/tail-spin.svg" class="loader-icon" alt="">
   </div>
 </template>
@@ -8,10 +8,13 @@
 export default {
   name: "loader",
   props: {
-    message: { type: String, required: false }
+    inline: { type: Boolean, required: false, default: false }
   }
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+.loader.loader-inline {
+  display: inline-block;
+}
 </style>

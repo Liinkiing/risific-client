@@ -3,12 +3,15 @@ query ViewerQuery {
     __typename
     id
     email
+    createdAt
     username
     favorites {
       totalCount
       edges {
+        cursor
         node {
           risific {
+            id
             title
             slug
           }

@@ -1,0 +1,5 @@
+mutation DeleteUserFavorite ($input: DeleteUserFavoriteInput!) {
+  deleteUserFavorite(input: $input) {
+    deletedRisificFavoriteId
+  }
+}

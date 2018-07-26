@@ -3,17 +3,14 @@
     <div class="container">
       <router-link :to="{name: 'home'}">Risific</router-link>
       <div class="pull-right">
-        <ApolloQuery tag="span" v-if="isLoggedIn" :query="require('../../graphql/queries/user/ViewerQuery.graphql')">
-          <template slot-scope="{ result: { data, loading, error } }">
-            <span v-if="loading"><loader/></span>
-            <span v-else-if="data && data.viewer">
-              <router-link :to="{name: 'login'}">
-                {{ data.viewer.username }}
+        <ViewerQuery v-if="isLoggedIn">
+          <template slot-scope="{ viewer }">
+              <router-link :to="{name: 'me'}">
+                {{ viewer.username }}
               </router-link>
               <button class="logout-button" @click="logout">Se déconnecter</button>
-            </span>
           </template>
-        </ApolloQuery>
+        </ViewerQuery>
         <router-link v-else :to="{name: 'login'}">Connexion</router-link>
       </div>
     </div>
@@ -25,9 +22,10 @@ import { mapState } from "vuex";
 import { EventBus } from "../../main";
 import { EVENT_LOGOUT } from "../../constants";
 import Loader from "./Loader";
+import ViewerQuery from "../graphql/ViewerQuery";
 export default {
   name: "app-header",
-  components: { Loader },
+  components: { ViewerQuery, Loader },
   computed: {
     ...mapState("user", ["isLoggedIn"])
   },
