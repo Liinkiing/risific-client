@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     logout() {
-      EventBus.$emit(EVENT_LOGOUT);
+      EventBus.$emit(EVENT_LOGOUT, this.$route);
     }
   }
 };

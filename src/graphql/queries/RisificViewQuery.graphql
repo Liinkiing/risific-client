@@ -1,10 +1,10 @@
-query RisificViewQuery ($slug: Any!) {
+query RisificViewQuery ($slug: Any!, $isAuthenticated: Boolean = false) {
   risific(search: {field: SLUG, value: $slug}) {
     id
     title
     slug
     createdAt
     chaptersCount
-    viewerHasFavorited
+    viewerHasFavorited @include(if: $isAuthenticated)
   }
 }

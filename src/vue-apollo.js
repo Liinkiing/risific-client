@@ -83,12 +83,16 @@ export function createProvider(options = {}) {
 }
 
 // Manually call this when user log in
-export async function onLogin(apolloClient, token, refreshToken) {
-  AuthManager.setToken(token);
-  AuthManager.setRefreshToken(refreshToken);
+export function onLogin(apolloClient, token, refreshToken, referrer) {
   if (apolloClient.wsClient) restartWebsockets(apolloClient.wsClient);
   try {
-    await apolloClient.resetStore();
+    AuthManager.setToken(token);
+    AuthManager.setRefreshToken(refreshToken);
+    if(referrer) {
+      window.location.replace(referrer.fullPath);
+    } else {
+      window.location.reload(true);
+    }
   } catch (e) {
     // eslint-disable-next-line no-console
     console.log("%cError on cache reset (login)", "color: orange;", e.message);
@@ -96,12 +100,16 @@ export async function onLogin(apolloClient, token, refreshToken) {
 }
 
 // Manually call this when user log out
-export async function onLogout(apolloClient) {
+export function onLogout(apolloClient, referrer) {
   if (apolloClient.wsClient) restartWebsockets(apolloClient.wsClient);
   try {
-    await apolloClient.resetStore();
     AuthManager.removeToken();
     AuthManager.removeRefreshToken();
+    if(referrer) {
+      window.location.replace(referrer.fullPath);
+    } else {
+      window.location.reload(true);
+    }
   } catch (e) {
     // eslint-disable-next-line no-console
     console.log("%cError on cache reset (logout)", "color: orange;", e.message);

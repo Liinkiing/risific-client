@@ -1,7 +1,7 @@
 <template>
   <div class="risific-page">
     <ApolloQuery :query="require('../../graphql/queries/RisificViewQuery.graphql')"
-                 :variables="{ slug }">
+                 :variables="{ slug, isAuthenticated }">
       <template slot-scope="{ result: { data, loading, error } }">
         <div v-if="loading" class="fixed-bloc">
           <loader/>
@@ -9,16 +9,15 @@
         <div v-else-if="data && data.risific">
           <vue-headful :title="'Risific - ' + data.risific.title"/>
           <h1>{{ data.risific.title }}</h1>
-          <ApolloMutation v-if="isLoggedIn && data.risific.viewerHasFavorited" tag="span"
+          <ApolloMutation v-if="isAuthenticated && data && data.risific.viewerHasFavorited" tag="span"
                           :mutation="require('../../graphql/mutations/DeleteUserFavoriteMutation.graphql')"
-                          :variables="{input: { risificId: data.risific.id }}"
-                          :refetch-queries="refetchRisific">
+                          :variables="{input: { risificId: data.risific.id }}">
             <template slot-scope="{ mutate, loading, error }">
               <button :disabled="loading" @click="mutate()">Supprimer des favoris</button>
               <p v-if="error">An error occured: {{ error }}</p>
             </template>
           </ApolloMutation>
-          <ApolloMutation v-else-if="isLoggedIn && !data.risific.viewerHasFavorited" tag="span"
+          <ApolloMutation v-else-if="isAuthenticated && data && !data.risific.viewerHasFavorited" tag="span"
                           :mutation="require('../../graphql/mutations/AddUserFavoriteMutation.graphql')"
                           :variables="{input: { risificId: data.risific.id }}">
             <template slot-scope="{ mutate, loading, error }">
@@ -42,6 +41,7 @@
 import { mapState } from "vuex";
 import RisificPagination from "../../components/risific/RisificPagination";
 import Loader from "../../components/ui/Loader";
+import AuthManager from "../../managers/AuthManager";
 
 export default {
   name: "risific-view",
@@ -50,19 +50,10 @@ export default {
     slug: { type: String, required: true }
   },
   computed: {
+    isAuthenticated() {
+      return AuthManager.isLoggedIn();
+    },
     ...mapState("user", ["isLoggedIn"])
-  },
-  methods: {
-    refetchRisific() {
-      return [
-        {
-          query: require("../../graphql/queries/RisificViewQuery.graphql"),
-          variables: {
-            slug: this.slug
-          }
-        }
-      ];
-    }
   }
 };
 </script>

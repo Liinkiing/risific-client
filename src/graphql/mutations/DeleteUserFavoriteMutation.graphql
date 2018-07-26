@@ -1,5 +1,8 @@
 mutation DeleteUserFavorite ($input: DeleteUserFavoriteInput!) {
   deleteUserFavorite(input: $input) {
-    deletedRisificFavoriteId
+    risific {
+      id
+      viewerHasFavorited
+    }
   }
 }

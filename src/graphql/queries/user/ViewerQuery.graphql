@@ -10,6 +10,7 @@ query ViewerQuery {
       edges {
         cursor
         node {
+          id
           risific {
             id
             title
