@@ -3,6 +3,7 @@ import vueHeadful from "vue-headful";
 import vueMoment from "vue-moment";
 import moment from "moment";
 import "moment/locale/fr";
+import feather from 'vue-icon';
 
 import App from "./App.vue";
 import "./assets/scss/app.scss";
@@ -19,6 +20,7 @@ Vue.config.silent = process.env.NODE_ENV !== "development";
 
 Vue.component("vue-headful", vueHeadful);
 Vue.use(vueMoment, { moment });
+Vue.use(feather);
 
 new Vue({
   router,

@@ -38,7 +38,10 @@ export default {
 <style lang="scss" scoped>
 .risific-list {
   & li.favorited a {
-    color: yellow;
+    color: $yellow;
+    &:hover {
+      color: darken($yellow, 10%);
+    }
   }
 }
 </style>

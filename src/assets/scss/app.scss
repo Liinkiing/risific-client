@@ -5,18 +5,53 @@ html {
   font-size: 100%;
 }
 
-body {
-  background: $darker;
-  font-family: 'Lato', 'Helvetica', 'Arial', sans-serif;
+button {
+  &:hover {
+    cursor: pointer;
+  }
+  &:disabled {
+    filter: grayscale(0.7);
+    cursor: not-allowed;
+  }
+}
+
+button.button-primary {
+  transition: all $transition-duration;
+  border-radius: $main-border-radius;
+  background: $green;
+  border: $main-border-size lighten($green, 3%) solid;
+  box-shadow: $black-shadow;
+  padding: 10px;
   color: $white;
+  font-weight: 700;
+  &:hover {
+    background: lighten($green, 1%);
+    box-shadow: $darker-shadow;
+  }
+}
+
+body {
+  background: $white;
+  font-family: 'Lato', 'Helvetica', 'Arial', sans-serif;
+  color: $darker;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.page-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 main.container {
-  margin-top: $navbar-height + 40;
+  margin-top: $navbar-height + $space-nav-content;
 }
 
 .container {
-  margin: 0 $margin-mobile;
+  width: 100%;
   @include breakpoint(tablet) {
     max-width: 90%;
     margin: 0 auto;

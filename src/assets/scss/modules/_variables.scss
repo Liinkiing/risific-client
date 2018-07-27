@@ -1,5 +1,17 @@
 $transition-duration: .3s;
 $margin-mobile: 1rem;
-$navbar-height: 80px;
+$navbar-height: 60px;
+$space-nav-content: 0px;
 
-$hover-link: darken($green, 10)
+$hover-link: darken($green, 10);
+
+$main-border-radius: 3px;
+$card-border-radius: 6px;
+
+$main-border-size: 2px;
+
+$main-shadow: 2px 3px 15px rgba(0,0,0,0.05);
+$navbar-shadow: 0 0 18px rgba(0,0,0,0.3);
+$darker-shadow: 2px 8px 20px rgba(0,0,0,0.1);
+$condensed-shadow: 0 0 10px rgba(0,0,0,0.05);
+$black-shadow: 0 2px 15px rgba(0,0,0,0.16);

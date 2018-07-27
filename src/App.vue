@@ -2,11 +2,9 @@
   <div id="app">
     <vue-headful title="Risific"/>
     <app-header/>
-    <main class="container">
-      <transition name="fade-up" mode="out-in">
-        <router-view/>
-      </transition>
-    </main>
+    <transition name="fade-up" mode="out-in">
+      <router-view/>
+    </transition>
   </div>
 </template>
 <script>
@@ -24,9 +22,14 @@ export default {
   },
   created() {
     EventBus.$on(EVENT_LOGIN, async ({ token, refreshToken, referrer }) => {
-      onLogin(this.$apolloProvider.defaultClient, token, refreshToken, referrer);
+      onLogin(
+        this.$apolloProvider.defaultClient,
+        token,
+        refreshToken,
+        referrer
+      );
     });
-    EventBus.$on(EVENT_LOGOUT, async (referrer) => {
+    EventBus.$on(EVENT_LOGOUT, async referrer => {
       onLogout(this.$apolloProvider.defaultClient, referrer);
     });
   }
