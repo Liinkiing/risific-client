@@ -24,9 +24,8 @@ export default {
 <style lang="scss" scoped>
 li {
   list-style: none;
-  margin-bottom: 1rem;
-  &:last-of-type {
-    margin-bottom: 0;
+  &.bright a {
+    color: $white;
   }
   & a {
     display: inline-flex;

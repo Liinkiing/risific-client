@@ -8,12 +8,13 @@
         </div>
         <div v-else-if="data && data.risific">
           <vue-headful :title="'Risific - ' + data.risific.title"/>
-          <h1>{{ data.risific.title }}</h1>
+          <h1 v-if="!isAuthenticated">{{ data.risific.title }}</h1>
           <ApolloMutation v-if="isAuthenticated && data && data.risific.viewerHasFavorited" tag="span"
                           :mutation="require('../../graphql/mutations/DeleteUserFavoriteMutation.graphql')"
                           :variables="{input: { risificId: data.risific.id }}">
             <template slot-scope="{ mutate, loading, error }">
-              <button class="button-primary" :disabled="loading" @click="mutate()">Supprimer des favoris</button>
+              <h1>{{ data.risific.title }} <button class="button-inline favorite-button is-favorited" :disabled="loading" @click="mutate()"><icon name="star"/></button></h1>
+
               <p v-if="error">An error occured: {{ error }}</p>
             </template>
           </ApolloMutation>
@@ -21,7 +22,8 @@
                           :mutation="require('../../graphql/mutations/AddUserFavoriteMutation.graphql')"
                           :variables="{input: { risificId: data.risific.id }}">
             <template slot-scope="{ mutate, loading, error }">
-              <button class="button-primary" :disabled="loading" @click="mutate()">Ajouter aux favoris</button>
+              <h1>{{ data.risific.title }} <button class="button-inline favorite-button" :disabled="loading" @click="mutate()"><icon name="star"/></button></h1>
+
               <p v-if="error">An error occured: {{ error }}</p>
             </template>
           </ApolloMutation>
@@ -58,5 +60,16 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+button.favorite-button {
+  background: none;
+  & svg.icon {
+    stroke: $darker;
+  }
+  &.is-favorited {
+    & svg.icon {
+      fill: $yellow;
+    }
+  }
+}
 </style>

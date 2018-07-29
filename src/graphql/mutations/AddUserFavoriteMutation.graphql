@@ -3,6 +3,7 @@ mutation AddUserFavorite ($input: AddUserFavoriteInput!) {
     userFavorite {
       risific {
         id
+        __typename
         viewerHasFavorited
       }
     }

@@ -10,7 +10,7 @@
                           :variables="{ input: { risificId: favorite.risific.id } }"
                           :refetch-queries="refetchViewer">
             <template slot-scope="{ mutate, loading, error }">
-              <button :disabled="loading" @click="mutate()">x</button>
+              <button class="button-inline" :disabled="loading" @click="mutate()">x</button>
               <p v-if="error"> {{ error }} </p>
             </template>
           </ApolloMutation>

@@ -2,6 +2,7 @@ mutation DeleteUserFavorite ($input: DeleteUserFavoriteInput!) {
   deleteUserFavorite(input: $input) {
     risific {
       id
+      __typename
       viewerHasFavorited
     }
   }

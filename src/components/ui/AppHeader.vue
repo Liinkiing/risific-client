@@ -1,7 +1,12 @@
 <template>
-  <nav class="main-navigation">
+  <nav class="main-navigation" role="navigation">
     <div class="container">
       <router-link :to="{name: 'home'}">Risific</router-link>
+      <ul class="desktop-menu">
+        <menu-item v-if="isLoggedIn && viewer" :to="{name: 'me'}">{{ viewer.username }}</menu-item>
+        <menu-item v-if="isLoggedIn && viewer" @click.prevent="logout">Se déconnecter</menu-item>
+        <menu-item v-if="!isLoggedIn" :to="{name: 'login'}">Connexion</menu-item>
+      </ul>
       <div @click.prevent="toggleMenu" class="menu-button">
         <button class="hamburger hamburger--slider" :class="{'is-active': showMenu}" type="button">
           <span class="hamburger-box">
@@ -9,10 +14,10 @@
           </span>
         </button>
         <transition name="fade-down" mode="in-out">
-          <ul v-on-clickaway="hideMenu" class="menu" v-if="showMenu">
-            <menu-item v-if="isLoggedIn && viewer" :to="{name: 'me'}" icon="user">{{ viewer.username }}</menu-item>
-            <menu-item v-if="isLoggedIn && viewer" @click.prevent="logout" icon="log-out">Se déconnecter</menu-item>
-            <menu-item v-if="!isLoggedIn" :to="{name: 'login'}" icon="log-in">Connexion</menu-item>
+          <ul v-on-clickaway="hideMenu" class="mobile-menu" v-if="showMenu">
+            <menu-item class="bright" v-if="isLoggedIn && viewer" :to="{name: 'me'}" icon="user">{{ viewer.username }}</menu-item>
+            <menu-item class="bright" v-if="isLoggedIn && viewer" @click.prevent="logout" icon="log-out">Se déconnecter</menu-item>
+            <menu-item class="bright" v-if="!isLoggedIn" :to="{name: 'login'}" icon="log-in">Connexion</menu-item>
           </ul>
         </transition>
       </div>
@@ -81,14 +86,10 @@ export default {
     height: 100%;
     padding: 0 0 0 $margin-mobile;
     @include breakpoint(tablet) {
-      max-width: 100%;
-    }
-    @include breakpoint(desktop) {
       max-width: 80%;
     }
   }
 }
-
 .menu-button {
   position: relative;
   transition: all $transition-duration;
@@ -99,6 +100,9 @@ export default {
   align-items: center;
   align-self: stretch;
   margin-left: auto;
+  @include breakpoint(tablet) {
+    display: none;
+  }
   & button.hamburger {
     padding: 0;
     display: flex;
@@ -127,19 +131,40 @@ export default {
   }
 }
 
-.menu {
+.desktop-menu {
+  display: none;
+  @include breakpoint(tablet) {
+    display: flex;
+    margin: 0 0 0 auto;
+    padding: 0;
+    & li {
+      margin-right: 1rem;
+      &:last-of-type {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+.mobile-menu {
   display: flex;
   margin: 0;
   text-align: right;
   flex-direction: column;
-  border-radius: $card-border-radius 0 0 $card-border-radius;
+  border-radius: 0 0 0 $card-border-radius;
   width: 400px;
   box-shadow: $main-shadow;
   right: 0;
   position: absolute;
-  top: $navbar-height + $space-menu-button-menu;
+  top: $navbar-height;
   padding: 20px;
-  background: white;
+  background: $green;
+  & li {
+    margin-bottom: 1rem;
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
   @include breakpoint(destkop) {
     border-radius: $card-border-radius;
   }

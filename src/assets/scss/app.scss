@@ -9,12 +9,20 @@ button {
   transition: all $transition-duration;
   border: none;
   outline: none;
+  display: flex;
+  justify-content: center;
   &:hover {
     cursor: pointer;
   }
   &:disabled {
     filter: grayscale(0.7);
     cursor: not-allowed;
+  }
+  & .icon {
+    width: 20px;
+  }
+  &.button-inline {
+    display: inline-flex;
   }
 }
 
@@ -51,12 +59,13 @@ body {
 
 main.container {
   margin-top: $navbar-height + $space-nav-content;
+  padding: 0 $mobile-container-padding;
 }
 
 .container {
   width: 100%;
   @include breakpoint(tablet) {
-    max-width: 90%;
+    max-width: 80%;
     margin: 0 auto;
   }
   @include breakpoint(desktop) {
