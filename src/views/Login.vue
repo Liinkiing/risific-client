@@ -72,10 +72,6 @@ export default {
 <style scoped lang="scss">
 .page-login {
   margin-top: $navbar-height;
-  @include breakpoint(desktop) {
-    width: 100vw;
-    height: 100vh;
-  }
 }
 .login-form {
   display: flex;

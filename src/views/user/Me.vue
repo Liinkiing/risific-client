@@ -1,5 +1,5 @@
 <template>
-    <div class="my-profile">
+    <main class="container page-my-profile">
       <ViewerQuery>
         <div slot-scope="{ viewer }" :user="viewer">
           <user-info :user="viewer"></user-info>
@@ -7,7 +7,7 @@
           <user-favorite-list :favorites="viewer.favorites"></user-favorite-list>
         </div>
       </ViewerQuery>
-    </div>
+    </main>
     
 </template>
 

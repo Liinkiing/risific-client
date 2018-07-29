@@ -2,17 +2,20 @@
   <nav class="main-navigation">
     <div class="container">
       <router-link :to="{name: 'home'}">Risific</router-link>
-      <ViewerQuery v-if="isLoggedIn">
-        <template slot-scope="{ viewer }">
-          <router-link :to="{name: 'me'}">
-            {{ viewer.username }}
-          </router-link>
-          <button class="logout-button" @click="logout">Se déconnecter</button>
-        </template>
-      </ViewerQuery>
-      <router-link class="login-button" v-else :to="{name: 'login'}">
-        <icon name="user"/>
-      </router-link>
+      <div @click.prevent="toggleMenu" class="menu-button">
+        <button class="hamburger hamburger--slider" :class="{'is-active': showMenu}" type="button">
+          <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+          </span>
+        </button>
+        <transition name="fade-down" mode="in-out">
+          <ul v-on-clickaway="hideMenu" class="menu" v-if="showMenu">
+            <menu-item v-if="isLoggedIn && viewer" :to="{name: 'me'}" icon="user">{{ viewer.username }}</menu-item>
+            <menu-item v-if="isLoggedIn && viewer" @click.prevent="logout" icon="log-out">Se déconnecter</menu-item>
+            <menu-item v-if="!isLoggedIn" :to="{name: 'login'}" icon="log-in">Connexion</menu-item>
+          </ul>
+        </transition>
+      </div>
     </div>
   </nav>
 </template>
@@ -21,16 +24,37 @@
 import { mapState } from "vuex";
 import { EventBus } from "../../main";
 import { EVENT_LOGOUT } from "../../constants";
+import { directive as onClickaway } from "vue-clickaway";
 import Loader from "./Loader";
 import ViewerQuery from "../graphql/ViewerQuery";
+import MenuItem from "./menu/MenuItem";
 
 export default {
   name: "app-header",
-  components: { ViewerQuery, Loader },
+  directives: {
+    onClickaway
+  },
+  components: { MenuItem, ViewerQuery, Loader },
+  data() {
+    return {
+      showMenu: false
+    };
+  },
   computed: {
     ...mapState("user", ["isLoggedIn"])
   },
+  apollo: {
+    viewer: {
+      query: require("../../graphql/queries/user/ViewerQuery.graphql")
+    }
+  },
   methods: {
+    toggleMenu() {
+      this.showMenu = !this.showMenu;
+    },
+    hideMenu() {
+      this.showMenu = false;
+    },
     logout() {
       EventBus.$emit(EVENT_LOGOUT, this.$route);
     }
@@ -65,22 +89,59 @@ export default {
   }
 }
 
-.login-button {
+.menu-button {
+  position: relative;
+  transition: all $transition-duration;
   background: $green;
-  width: 80px;
+  width: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
   align-self: stretch;
   margin-left: auto;
+  & button.hamburger {
+    padding: 0;
+    display: flex;
+    & .hamburger-box {
+      transform: scale(0.6);
+      & .hamburger-inner {
+        background: $white;
+        &:before,
+        &:after {
+          background: inherit;
+        }
+      }
+    }
+  }
   &:hover {
+    cursor: pointer;
     background: darken($green, 3%);
-    height: 60px;
   }
   & svg {
-    width: 70%;
-    height: 70%;
     color: $white;
+    &.icon-menu.opened {
+      & line {
+        opacity: 0;
+      }
+    }
+  }
+}
+
+.menu {
+  display: flex;
+  margin: 0;
+  text-align: right;
+  flex-direction: column;
+  border-radius: $card-border-radius 0 0 $card-border-radius;
+  width: 400px;
+  box-shadow: $main-shadow;
+  right: 0;
+  position: absolute;
+  top: $navbar-height + $space-menu-button-menu;
+  padding: 20px;
+  background: white;
+  @include breakpoint(destkop) {
+    border-radius: $card-border-radius;
   }
 }
 

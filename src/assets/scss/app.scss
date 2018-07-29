@@ -6,6 +6,9 @@ html {
 }
 
 button {
+  transition: all $transition-duration;
+  border: none;
+  outline: none;
   &:hover {
     cursor: pointer;
   }

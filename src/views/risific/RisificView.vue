@@ -1,5 +1,5 @@
 <template>
-  <div class="risific-page">
+  <main class="container risific-page">
     <ApolloQuery :query="require('../../graphql/queries/RisificViewQuery.graphql')"
                  :variables="{ slug, isAuthenticated }">
       <template slot-scope="{ result: { data, loading, error } }">
@@ -13,7 +13,7 @@
                           :mutation="require('../../graphql/mutations/DeleteUserFavoriteMutation.graphql')"
                           :variables="{input: { risificId: data.risific.id }}">
             <template slot-scope="{ mutate, loading, error }">
-              <button :disabled="loading" @click="mutate()">Supprimer des favoris</button>
+              <button class="button-primary" :disabled="loading" @click="mutate()">Supprimer des favoris</button>
               <p v-if="error">An error occured: {{ error }}</p>
             </template>
           </ApolloMutation>
@@ -21,7 +21,7 @@
                           :mutation="require('../../graphql/mutations/AddUserFavoriteMutation.graphql')"
                           :variables="{input: { risificId: data.risific.id }}">
             <template slot-scope="{ mutate, loading, error }">
-              <button :disabled="loading" @click="mutate()">Ajouter aux favoris</button>
+              <button class="button-primary" :disabled="loading" @click="mutate()">Ajouter aux favoris</button>
               <p v-if="error">An error occured: {{ error }}</p>
             </template>
           </ApolloMutation>
@@ -34,7 +34,7 @@
         </div>
       </template>
     </ApolloQuery>
-  </div>
+  </main>
 </template>
 
 <script>

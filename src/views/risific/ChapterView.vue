@@ -10,7 +10,7 @@
           {{ data.chapter.body }}
         </div>
         <div v-else-if="loading" class="fixed-bloc">
-          <loader/>
+          <loader :with-background="true"/>
         </div>
         <div v-else class="fixed-bloc">
           <p>On modifie l'url et on se sent HACKEUR ?&nbsp;<img data-code=":)"
