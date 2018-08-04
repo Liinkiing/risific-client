@@ -1,11 +1,12 @@
 export const SET_LOGGED_IN = "SET_LOGGED_IN";
 export const SET_CURRENT_THEME = "SET_CURRENT_THEME";
+export const SET_VIEWER = "SET_VIEWER";
 
 export default {
   [SET_LOGGED_IN](state, loggedIn) {
     state.isLoggedIn = loggedIn;
   },
-  [SET_CURRENT_THEME](state, newTheme) {
-    state.currentTheme = newTheme;
+  [SET_VIEWER](state, viewer) {
+    state.viewer = viewer;
   }
 };

@@ -1,31 +1,29 @@
 <template>
   <div class="user-theme-picker">
     <button v-for="theme in availableThemes" :key="theme"
-            class="theme-icon" :class="{'active': theme.toLowerCase() === viewerPreference.theme, [theme.toLowerCase()]: true}"
+            class="theme-icon" :class="{'active': theme.toLowerCase() === viewer.preference.theme, [theme.toLowerCase()]: true}"
             @click.prevent="changeTheme(theme)" :disabled="loading">
     </button>
   </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
-import { CHANGE_USER_THEME } from "../../../store/modules/user/actions";
+import { mapState } from "vuex";
 
 export default {
   name: "user-theme-picker",
-  props: {
-    viewerPreference: { type: Object, required: true }
-  },
   data() {
     return {
       availableThemes: ["LIGHT", "DARK"],
       loading: false
     };
   },
+  computed: {
+    ...mapState('user', ['viewer'])
+  },
   methods: {
-    ...mapActions("user", [CHANGE_USER_THEME]),
     async changeTheme(theme) {
-      if (theme.toLowerCase() === this.viewerPreference.theme.toLowerCase())
+      if (theme.toLowerCase() === this.viewer.preference.theme.toLowerCase())
         return;
       this.loading = true;
       await this.$apollo.mutate({
@@ -37,7 +35,7 @@ export default {
             __typename: "UpdateUserPreferencePayload",
             userPreference: {
               __typename: "UserPreference",
-              id: this.viewerPreference.id || -1,
+              id: this.viewer.preference.id || -1,
               theme: theme.toLowerCase()
             }
           }

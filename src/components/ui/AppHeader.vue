@@ -33,7 +33,7 @@ import { directive as onClickaway } from "vue-clickaway";
 import Loader from "./Loader";
 import ViewerQuery from "../graphql/ViewerQuery";
 import MenuItem from "./menu/MenuItem";
-import { CHANGE_USER_THEME } from "../../store/modules/user/actions";
+import { SET_VIEWER } from "../../store/modules/user/actions";
 
 export default {
   name: "app-header",
@@ -53,12 +53,12 @@ export default {
     viewer: {
       query: require("../../graphql/queries/user/ViewerQuery.graphql"),
       result({ data: { viewer } }) {
-        this[CHANGE_USER_THEME](viewer.preference.theme);
+        this[SET_VIEWER](viewer);
       }
     }
   },
   methods: {
-    ...mapActions("user", [CHANGE_USER_THEME]),
+    ...mapActions("user", [SET_VIEWER]),
     toggleMenu() {
       this.showMenu = !this.showMenu;
     },

@@ -14,7 +14,6 @@
                           :variables="{input: { risificId: data.risific.id }}">
             <template slot-scope="{ mutate, loading, error }">
               <h1>{{ data.risific.title }} <button class="button-inline favorite-button is-favorited" :disabled="loading" @click="mutate()"><icon name="star"/></button></h1>
-
               <p v-if="error">An error occured: {{ error }}</p>
             </template>
           </ApolloMutation>
@@ -44,6 +43,7 @@ import { mapState } from "vuex";
 import RisificPagination from "../../components/risific/RisificPagination";
 import Loader from "../../components/ui/Loader";
 import AuthManager from "../../managers/AuthManager";
+import UserThemePicker from "../../components/ui/user/UserThemePicker";
 
 export default {
   name: "risific-view",
@@ -69,6 +69,13 @@ button.favorite-button {
   &.is-favorited {
     & svg.icon {
       fill: $yellow;
+    }
+  }
+}
+body.dark-theme {
+  & button.favorite-button {
+    & svg.icon {
+      stroke: $white;
     }
   }
 }
