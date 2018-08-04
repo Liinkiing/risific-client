@@ -1,0 +1,8 @@
+mutation UpdateUserPreferenceMutation($input: UpdateUserPreferenceInput!) {
+  updateUserPreference(input: $input) {
+    userPreference {
+      id
+      theme
+    }
+  }
+}

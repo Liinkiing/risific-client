@@ -26,13 +26,14 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 import { EventBus } from "../../main";
 import { EVENT_LOGOUT } from "../../constants";
 import { directive as onClickaway } from "vue-clickaway";
 import Loader from "./Loader";
 import ViewerQuery from "../graphql/ViewerQuery";
 import MenuItem from "./menu/MenuItem";
+import { CHANGE_USER_THEME } from "../../store/modules/user/actions";
 
 export default {
   name: "app-header",
@@ -50,10 +51,14 @@ export default {
   },
   apollo: {
     viewer: {
-      query: require("../../graphql/queries/user/ViewerQuery.graphql")
+      query: require("../../graphql/queries/user/ViewerQuery.graphql"),
+      result({ data: { viewer } }) {
+        this[CHANGE_USER_THEME](viewer.preference.theme);
+      }
     }
   },
   methods: {
+    ...mapActions("user", [CHANGE_USER_THEME]),
     toggleMenu() {
       this.showMenu = !this.showMenu;
     },
@@ -69,6 +74,7 @@ export default {
 
 <style lang="scss" scoped>
 .main-navigation {
+  transition: all $transition-duration;
   background: $medium-dark;
   position: fixed;
   z-index: 100;
@@ -76,7 +82,7 @@ export default {
   left: 0;
   right: 0;
   height: $navbar-height;
-  box-shadow: $navbar-shadow;
+  @include navbarShadow();
   & .pull-right {
     margin-left: auto;
   }
@@ -153,7 +159,7 @@ export default {
   flex-direction: column;
   border-radius: 0 0 0 $card-border-radius;
   width: 400px;
-  box-shadow: $main-shadow;
+  @include mainShadow();
   right: 0;
   position: absolute;
   top: $navbar-height;
@@ -179,6 +185,12 @@ export default {
   &:hover {
     color: $hover-link;
     cursor: pointer;
+  }
+}
+
+body.dark-theme {
+  & .main-navigation {
+    background: $white;
   }
 }
 </style>

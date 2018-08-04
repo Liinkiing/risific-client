@@ -31,13 +31,13 @@ button.button-primary {
   border-radius: $main-border-radius;
   background: $green;
   border: $main-border-size lighten($green, 3%) solid;
-  box-shadow: $black-shadow;
+  @include blackShadow();
   padding: 10px;
   color: $white;
   font-weight: 700;
   &:hover {
     background: lighten($green, 1%);
-    box-shadow: $darker-shadow;
+    @include darkerShadow()
   }
 }
 
@@ -45,6 +45,10 @@ body {
   background: $white;
   font-family: 'Lato', 'Helvetica', 'Arial', sans-serif;
   color: $darker;
+  &.dark-theme {
+    color: $white;
+    background: $darker;
+  }
 }
 
 * {

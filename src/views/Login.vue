@@ -84,7 +84,7 @@ export default {
     width: 70%;
     max-width: 700px;
     margin: 40px auto;
-    box-shadow: $darker-shadow;
+    @include darkerShadow();
   }
   & header {
     background: $medium-dark;
@@ -127,7 +127,7 @@ export default {
         padding: 10px 10px 10px 60px;
         border-radius: $main-border-radius;
         border: $main-border-size solid darken($white, 5%);
-        box-shadow: $condensed-shadow;
+        @include condensedShadow();
       }
     }
     & .input-icon {

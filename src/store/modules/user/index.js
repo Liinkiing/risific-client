@@ -3,7 +3,8 @@ import mutations from "./mutations";
 import { AUTH_TOKEN } from "../../../vue-apollo";
 
 const state = {
-  isLoggedIn: localStorage.getItem(AUTH_TOKEN) !== null
+  isLoggedIn: localStorage.getItem(AUTH_TOKEN) !== null,
+  currentTheme: "light"
 };
 
 export default {

@@ -9,3 +9,31 @@
     @media (max-width: 37.5em)  { @content ; }
   }
 }
+
+@mixin box-shadow($top, $left, $blur, $color, $inset: false) {
+  @if $inset {
+    box-shadow: inset $top $left $blur $color;
+  } @else {
+    box-shadow: $top $left $blur $color;
+  }
+}
+
+@mixin mainShadow($color: false, $transparentize: $defaut-box-shadow-transparentize) {
+  box-shadow: $main-shadow-position if($color, transparentize($color, $transparentize), rgba(0,0,0,0.05));
+}
+
+@mixin navbarShadow($color: false, $transparentize: $defaut-box-shadow-transparentize) {
+  box-shadow: $navbar-shadow-position if($color, transparentize($color, $transparentize), rgba(0,0,0,0.3));
+}
+
+@mixin darkerShadow($color: false, $transparentize: $defaut-box-shadow-transparentize) {
+  box-shadow: $darker-shadow-position if($color, transparentize($color, $transparentize), rgba(0,0,0,0.1));
+}
+
+@mixin condensedShadow($color: false, $transparentize: $defaut-box-shadow-transparentize) {
+  box-shadow: $condensed-shadow-position if($color, transparentize($color, $transparentize), rgba(0,0,0,0.05));
+}
+
+@mixin blackShadow($color: false, $transparentize: $defaut-box-shadow-transparentize) {
+  box-shadow: $black-shadow-position if($color, transparentize($color, $transparentize), rgba(0,0,0,0.16));
+}

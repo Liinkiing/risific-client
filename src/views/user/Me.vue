@@ -5,6 +5,8 @@
           <user-info :user="viewer"></user-info>
           <h2>Vos favoris</h2>
           <user-favorite-list :favorites="viewer.favorites"></user-favorite-list>
+          <h2>Vos préférences</h2>
+          <user-theme-picker :viewer-theme="viewer.preference.theme"/>
         </div>
       </ViewerQuery>
     </main>
@@ -17,9 +19,10 @@ import UserInfo from "../../components/ui/user/UserInfo";
 import UserFavoriteList from "../../components/ui/user/UserFavoriteList";
 import AuthManager from "../../managers/AuthManager";
 import { LOGIN_ROUTE } from "../../router/routes";
+import UserThemePicker from "../../components/ui/user/UserThemePicker";
 export default {
   name: "Me",
-  components: { UserFavoriteList, UserInfo, ViewerQuery },
+  components: { UserThemePicker, UserFavoriteList, UserInfo, ViewerQuery },
   beforeRouteEnter(to, from, next) {
     if (!AuthManager.isLoggedIn()) {
       next({ name: LOGIN_ROUTE });

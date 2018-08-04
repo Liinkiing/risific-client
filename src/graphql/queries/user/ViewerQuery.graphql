@@ -5,6 +5,10 @@ query ViewerQuery {
     email
     createdAt
     username
+    preference {
+      id
+      theme
+    }
     favorites {
       totalCount
       edges {

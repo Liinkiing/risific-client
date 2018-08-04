@@ -13,8 +13,10 @@ $card-border-radius: 6px;
 
 $main-border-size: 2px;
 
-$main-shadow: 2px 3px 15px rgba(0,0,0,0.05);
-$navbar-shadow: 0 0 18px rgba(0,0,0,0.3);
-$darker-shadow: 2px 8px 20px rgba(0,0,0,0.1);
-$condensed-shadow: 0 0 10px rgba(0,0,0,0.05);
-$black-shadow: 0 2px 15px rgba(0,0,0,0.16);
+$main-shadow-position: 2px 3px 15px;
+$navbar-shadow-position: 0 0 18px;
+$darker-shadow-position: 2px 8px 20px;
+$condensed-shadow-position: 0 0 10px;
+$black-shadow-position: 0 2px 15px;
+
+$defaut-box-shadow-transparentize: 0.5;
