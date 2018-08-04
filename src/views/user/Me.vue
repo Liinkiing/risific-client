@@ -6,7 +6,8 @@
           <h2>Vos favoris</h2>
           <user-favorite-list :favorites="viewer.favorites"></user-favorite-list>
           <h2>Vos préférences</h2>
-          <user-theme-picker :viewer-theme="viewer.preference.theme"/>
+          <h3>Thème</h3>
+          <user-theme-picker :viewer-preference="viewer.preference"/>
         </div>
       </ViewerQuery>
     </main>

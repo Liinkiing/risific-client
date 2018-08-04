@@ -1,19 +1,20 @@
 <template>
-    <div class="user-theme-picker">
-      <button v-for="theme in availableThemes" :key="theme"
-           class="theme-icon" :class="{'active': theme.toLowerCase() === viewerTheme, [theme.toLowerCase()]: true}"
-           @click.prevent="changeTheme(theme)" :disabled="loading">
-      </button>
-    </div>
+  <div class="user-theme-picker">
+    <button v-for="theme in availableThemes" :key="theme"
+            class="theme-icon" :class="{'active': theme.toLowerCase() === viewerPreference.theme, [theme.toLowerCase()]: true}"
+            @click.prevent="changeTheme(theme)" :disabled="loading">
+    </button>
+  </div>
 </template>
 
 <script>
 import { mapActions } from "vuex";
 import { CHANGE_USER_THEME } from "../../../store/modules/user/actions";
+
 export default {
   name: "user-theme-picker",
   props: {
-    viewerTheme: { type: String, required: true, default: "light" }
+    viewerPreference: { type: Object, required: true }
   },
   data() {
     return {
@@ -24,11 +25,23 @@ export default {
   methods: {
     ...mapActions("user", [CHANGE_USER_THEME]),
     async changeTheme(theme) {
-      if (theme.toLowerCase() === this.viewerTheme.toLowerCase()) return;
+      if (theme.toLowerCase() === this.viewerPreference.theme.toLowerCase())
+        return;
       this.loading = true;
       await this.$apollo.mutate({
         mutation: require("../../../graphql/mutations/UpdateUserPreferenceMutation.graphql"),
-        variables: { input: { theme } }
+        variables: { input: { theme } },
+        optimisticResponse: {
+          __typename: "Mutation",
+          updateUserPreference: {
+            __typename: "UpdateUserPreferencePayload",
+            userPreference: {
+              __typename: "UserPreference",
+              id: this.viewerPreference.id || -1,
+              theme: theme.toLowerCase()
+            }
+          }
+        }
       });
       this.loading = false;
     }
