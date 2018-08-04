@@ -5,7 +5,7 @@ html {
   font-size: 100%;
 }
 
-button {
+button,.button {
   transition: all $transition-duration;
   border: none;
   outline: none;
@@ -20,13 +20,37 @@ button {
   }
   & .icon {
     width: 20px;
+    height: 20px;
   }
   &.button-inline {
     display: inline-flex;
   }
 }
 
-button.button-primary {
+a.button {
+  display: inline-flex;
+}
+
+.row {
+  display: flex;
+  margin: $row-margin;
+  &.centered {
+    justify-content: center;
+    align-content: center;
+  }
+  &:first-of-type {
+    margin-top: 0;
+  }
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+img.responsive-image {
+  max-width: 100%;
+}
+
+button.button-primary,.button.button-primary {
   transition: all $transition-duration;
   border-radius: $main-border-radius;
   background: $green;
